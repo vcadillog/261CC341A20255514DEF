@@ -1,0 +1,93 @@
+<div class="container d-flex justify-content-center align-items-center register-wrapper">
+  <div class="card register-card">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Crear Cuenta</h5>
+
+      <form [formGroup]="registerForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="Elige un usuario"
+            formControlName="username"
+            [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+          >
+            El usuario es obligatorio (mínimo 4 caracteres).
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Nombre completo"
+            formControlName="nombre"
+            [class.is-invalid]="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"
+          >
+            El nombre es obligatorio (mínimo 2 caracteres).
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Contraseña"
+            formControlName="password"
+            [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          >
+            La contraseña debe tener al menos 6 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            placeholder="Repite la contraseña"
+            formControlName="confirmPassword"
+            [class.is-invalid]="
+              (registerForm.get('confirmPassword')?.touched && registerForm.errors?.['passwordsMismatch']) ||
+              (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched)
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['passwordsMismatch']"
+          >
+            Las contraseñas no coinciden.
+          </div>
+        </div>
+
+        <div class="text-danger mb-3" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="text-success mb-3" *ngIf="successMessage">{{ successMessage }}</div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a routerLink="/login">¿Ya tienes cuenta? Inicia sesión</a>
+      </div>
+    </div>
+  </div>
+</div>

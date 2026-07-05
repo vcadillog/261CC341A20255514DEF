@@ -1,0 +1,55 @@
+<div class="container d-flex justify-content-center align-items-center login-wrapper">
+  <div class="card login-card">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Iniciar Sesión</h5>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="Usuario"
+            formControlName="username"
+            [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+          >
+            El usuario es obligatorio.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Contraseña"
+            formControlName="password"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+            La contraseña es obligatoria.
+          </div>
+        </div>
+
+        <div class="text-danger mb-3" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a routerLink="/register">¿No tienes cuenta? Regístrate</a>
+      </div>
+    </div>
+  </div>
+</div>

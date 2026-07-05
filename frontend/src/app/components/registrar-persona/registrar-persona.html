@@ -1,0 +1,235 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <h5>Registrar Persona</h5>
+        <form class="form-group" [formGroup]="personaForm" (ngSubmit)="registrarPersona()">
+          <div class="row mb-2">
+            <label for="apellidoPaterno" class="col-sm-2 col-form-label">Apellido Paterno:</label>
+            <div class="col-sm-4">
+              <input type="text"
+              class="form-control"
+              id="apellidoPaterno"
+              placeholder="Consigne Apellido Paterno"
+              formControlName="apellidoPaterno"
+              [class.is-invalid]="personaForm.get('apellidoPaterno')?.invalid && personaForm.get('apellidoPaterno')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('apellidoPaterno')?.invalid && personaForm.get('apellidoPaterno')?.touched">
+                Apellido Paterno es obligatorio (mínimo 2 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--Apellido Materno-->
+          <div class="row mb-2">
+            <label for="apellidoMaterno" class="col-sm-2 col-form-label">Apellido Materno:</label>
+            <div class="col-sm-4">
+              <input type="text"
+              class="form-control"
+              id="apellidoMaterno"
+              placeholder="Consigne Apellido Materno"
+              formControlName="apellidoMaterno"
+              [class.is-invalid]="personaForm.get('apellidoMaterno')?.invalid && personaForm.get('apellidoMaterno')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('apellidoMaterno')?.invalid && personaForm.get('apellidoMaterno')?.touched">
+                Apellido Materno es obligatorio (mínimo 2 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--Nombres-->
+          <div class="row mb-2">
+            <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
+            <div class="col-sm-4">
+              <input type="text"
+              class="form-control"
+              id="nombres"
+              placeholder="Consigne Nombres"
+              formControlName="nombres"
+              [class.is-invalid]="personaForm.get('nombres')?.invalid && personaForm.get('nombres')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('nombres')?.invalid && personaForm.get('nombres')?.touched">
+                Nombres es obligatorio (mínimo 2 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--Genero-->
+          <div class="row mb-2">
+            <label for="idSexo" class="col-sm-2 col-form-label">Genero:</label>
+            <div class="col-sm-2">
+              <select class="form-control form-select"
+              aria-label="Elija el Genero"
+              id="idSexo"
+              formControlName="idSexo"
+              >
+              @for(s of sexo; track s.idSexo){
+                <option [value]="s.idSexo">{{s.descripcion}}</option>
+              }
+              </select>
+            </div>
+          </div>
+          <!--Fecha Nacimiento-->
+          <div class="row mb-2">
+            <label for="fechaNacimiento" class="col-sm-2 col-form-label">Fecha Nacimiento:</label>
+            <div class="col-sm-2">
+              <input type="date"
+              class="form-control"
+              id="fechaNacimiento"
+              formControlName="fechaNacimiento"
+              />
+            </div>
+          </div>
+          <!--Tipo Documento-->
+          <div class="row mb-2">
+            <label for="idTipoDocumento" class="col-sm-2 col-form-label">Tipo Documento:</label>
+            <div class="col-sm-2">
+              <select class="form-control form-select"
+              aria-label="Elija el TipoDocumento"
+              id="idTipoDocumento"
+              formControlName="idTipoDocumento"
+              >
+              @for(td of tipoDocumento; track td.idTipoDocumento){
+                <option [value]="td.idTipoDocumento">{{td.descripcion}}</option>
+              }
+              </select>
+            </div>
+          </div>
+          <!--numero Documento-->
+          <div class="row mb-2">
+            <label for="numDocumento" class="col-sm-2 col-form-label">Numero de Documento:</label>
+            <div class="col-sm-2">
+              <input type="text"
+              class="form-control"
+              id="numDocumento"
+              placeholder="Consigne N° Documento"
+              formControlName="numDocumento"
+              [class.is-invalid]="personaForm.get('numDocumento')?.invalid && personaForm.get('numDocumento')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('numDocumento')?.invalid && personaForm.get('numDocumento')?.touched">
+                N° Documento es obligatorio (mínimo 8 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--telefono-->
+          <div class="row mb-2">
+            <label for="telefono" class="col-sm-2 col-form-label">Numero de Telefono:</label>
+            <div class="col-sm-2">
+              <input type="text"
+              class="form-control"
+              id="telefono"
+              placeholder="Consigne N° Telefono"
+              formControlName="telefono"
+              [class.is-invalid]="personaForm.get('telefono')?.invalid && personaForm.get('telefono')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('telefono')?.invalid && personaForm.get('telefono')?.touched">
+                Teléfono es obligatorio (mínimo 7 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--direccion-->
+          <div class="row mb-2">
+            <label for="direccion" class="col-sm-2 col-form-label">Direccion:</label>
+            <div class="col-sm-4">
+              <input type="text"
+              class="form-control"
+              id="direccion"
+              placeholder="Consigne Direccion"
+              formControlName="direccion"
+              [class.is-invalid]="personaForm.get('direccion')?.invalid && personaForm.get('direccion')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="personaForm.get('direccion')?.invalid && personaForm.get('direccion')?.touched">
+                Dirección es obligatoria (mínimo 8 caracteres).
+              </div>
+            </div>
+          </div>
+          <!--ubigeo-->
+          <div class="row mb-2">
+            <label for="idUbigeo" class="col-sm-2 col-form-label">Ubigeo:</label>
+            <div class="col-sm-2">
+              <select class="form-control form-select"
+              aria-label="Elija el Ubigeo"
+              id="idUbigeo"
+              formControlName="idUbigeo"
+              >
+              @for(u of ubigeo; track u.idUbigeo){
+                <option [value]="u.idUbigeo">{{
+                  u.departamento +"|" +u.provincia + "|" +u.distrito}}</option>
+              }
+              </select>
+            </div>
+          </div>
+          <!--Botones-->
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary me-2">
+            {{isEdited? 'Actualizar':'Registrar'}}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="refreshForm()">Cancelar</button>
+          </div>
+
+        </form>
+      </div>
+    </div><!--fin cabecera-->
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ApellidoPaterno</th>
+                <th scope="col">ApellidoMaterno</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">fechaNacimiento</th>
+                <th scope="col">tipoDocumento</th>
+                <th scope="col">numDocumento</th>
+                <th scope="col">telefono</th>
+                <th scope="col">direccion</th>
+                <th scope="col">ubigeo</th>
+              </tr>
+            </thead>
+            <tbody>
+                      <tr
+                        *ngFor="
+                          let persona of personaResponse;
+                          let i = index
+                        "
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ persona.apellidoPaterno }}</td>
+                        <td>{{ persona.apellidoMaterno }}</td>
+                        <td>{{ persona.nombres }}</td>
+                        <td *ngIf="persona.sexo">
+                          {{ persona.sexo.descripcion }}
+                        </td>
+                        <td *ngIf="!persona.sexo">Ninguno</td>
+                        <td>{{ persona.fechaNacimiento }}</td>
+                        <td *ngIf="persona.tipoDocumento">
+                          {{ persona.tipoDocumento.descripcion }}
+                        </td>
+                        <td *ngIf="!persona.tipoDocumento">Ninguno</td>
+                        <td>{{ persona.numDocumento }}</td>
+                        <td>{{ persona.telefono }}</td>
+                        <td>{{ persona.direccion }}</td>
+                        <td *ngIf="persona.ubigeo">
+                          {{
+                            persona.ubigeo.departamento +
+                              "|" +
+                              persona.ubigeo.provincia +
+                              "|" +
+                              persona.ubigeo.distrito
+                          }}
+                        </td>
+                        <td *ngIf="!persona.ubigeo">Ninguno</td>
+                      </tr>
+                    </tbody>
+          </table>
+      </div>
+    </div><!--fin detalle-->
+  </div>
+</div>
+
+
