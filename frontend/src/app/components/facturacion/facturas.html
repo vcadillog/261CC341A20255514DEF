@@ -1,0 +1,205 @@
+<nav class="navbar navbar-expand navbar-light bg-light mb-4">
+  <div class="container">
+    <span class="navbar-brand">SIGCON</span>
+    <div class="ms-auto">
+      <a routerLink="/persona" class="btn btn-outline-primary btn-sm me-2">Personas</a>
+      <button class="btn btn-outline-secondary btn-sm" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <h5>{{ isEdited ? 'Actualizar Factura' : 'Registrar Factura' }}</h5>
+        <form class="form-group" [formGroup]="facturasForm" (ngSubmit)="registrarFactura()">
+          <div class="row mb-2">
+            <label for="serie" class="col-sm-2 col-form-label">Serie:</label>
+            <div class="col-sm-2">
+              <input type="text"
+              class="form-control"
+              id="serie"
+              placeholder="Serie"
+              formControlName="serie"
+              [class.is-invalid]="facturasForm.get('serie')?.invalid && facturasForm.get('serie')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('serie')?.invalid && facturasForm.get('serie')?.touched">
+                Serie es obligatoria.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="numero" class="col-sm-2 col-form-label">Número:</label>
+            <div class="col-sm-2">
+              <input type="text"
+              class="form-control"
+              id="numero"
+              placeholder="Número"
+              formControlName="numero"
+              [class.is-invalid]="facturasForm.get('numero')?.invalid && facturasForm.get('numero')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('numero')?.invalid && facturasForm.get('numero')?.touched">
+                Número es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="fechaEmision" class="col-sm-2 col-form-label">Fecha Emisión:</label>
+            <div class="col-sm-2">
+              <input type="date"
+              class="form-control"
+              id="fechaEmision"
+              formControlName="fechaEmision"
+              [class.is-invalid]="facturasForm.get('fechaEmision')?.invalid && facturasForm.get('fechaEmision')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('fechaEmision')?.invalid && facturasForm.get('fechaEmision')?.touched">
+                Fecha de emisión es obligatoria.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="fechaVencimiento" class="col-sm-2 col-form-label">Fecha Vencimiento:</label>
+            <div class="col-sm-2">
+              <input type="date"
+              class="form-control"
+              id="fechaVencimiento"
+              formControlName="fechaVencimiento"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="idPersona" class="col-sm-2 col-form-label">Cliente:</label>
+            <div class="col-sm-3">
+              <select class="form-control form-select"
+              aria-label="Elija el Cliente"
+              id="idPersona"
+              formControlName="idPersona"
+              [class.is-invalid]="facturasForm.get('idPersona')?.invalid && facturasForm.get('idPersona')?.touched"
+              >
+                <option value="">Seleccione Cliente</option>
+                @for(p of personas; track p.idPersona){
+                  <option [value]="p.idPersona">{{p.nombres}} {{p.apellidoPaterno}} {{p.apellidoMaterno}}</option>
+                }
+              </select>
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('idPersona')?.invalid && facturasForm.get('idPersona')?.touched">
+                Cliente es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="subtotal" class="col-sm-2 col-form-label">Subtotal:</label>
+            <div class="col-sm-2">
+              <input type="number" step="0.01"
+              class="form-control"
+              id="subtotal"
+              placeholder="0.00"
+              formControlName="subtotal"
+              [class.is-invalid]="facturasForm.get('subtotal')?.invalid && facturasForm.get('subtotal')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('subtotal')?.invalid && facturasForm.get('subtotal')?.touched">
+                Subtotal es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="igv" class="col-sm-2 col-form-label">IGV:</label>
+            <div class="col-sm-2">
+              <input type="number" step="0.01"
+              class="form-control"
+              id="igv"
+              placeholder="0.00"
+              formControlName="igv"
+              [class.is-invalid]="facturasForm.get('igv')?.invalid && facturasForm.get('igv')?.touched"
+              />
+              <div class="invalid-feedback"
+                *ngIf="facturasForm.get('igv')?.invalid && facturasForm.get('igv')?.touched">
+                IGV es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="total" class="col-sm-2 col-form-label">Total:</label>
+            <div class="col-sm-2">
+              <input type="text"
+              class="form-control"
+              id="total"
+              placeholder="0.00"
+              formControlName="total"
+              readonly
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
+            <div class="col-sm-2">
+              <select class="form-control form-select"
+              aria-label="Elija el Estado"
+              id="estado"
+              formControlName="estado"
+              >
+                <option value="EMITIDA">Emitida</option>
+                <option value="PAGADA">Pagada</option>
+                <option value="ANULADA">Anulada</option>
+                <option value="VENCIDA">Vencida</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary me-2">
+              {{ isEdited ? 'Actualizar' : 'Registrar' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="refreshForm()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Serie</th>
+              <th scope="col">Número</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Fecha Emisión</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">IGV</th>
+              <th scope="col">Total</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(factura of facturasResponse; track factura.idFactura; let i = $index){
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ factura.serie }}</td>
+                <td>{{ factura.numero }}</td>
+                <td *ngIf="factura.persona">
+                  {{ factura.persona.nombres }} {{ factura.persona.apellidoPaterno }}
+                </td>
+                <td *ngIf="!factura.persona">Ninguno</td>
+                <td>{{ factura.fechaEmision }}</td>
+                <td>{{ factura.subtotal | number:'1.2-2' }}</td>
+                <td>{{ factura.igv | number:'1.2-2' }}</td>
+                <td>{{ factura.total | number:'1.2-2' }}</td>
+                <td>{{ factura.estado }}</td>
+                <td>
+                  <button class="btn btn-sm btn-warning me-1" (click)="editarFactura(factura)">Editar</button>
+                  <button class="btn btn-sm btn-danger" (click)="eliminarFactura(factura)">Eliminar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

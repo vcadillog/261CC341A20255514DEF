@@ -1,6 +1,7 @@
 import { Component,inject,OnInit,ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule,FormControl,FormGroup,Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { PersonaService } from '../../services/persona.service';
 import { PersonaRequest } from '../../model/persona-request';
 import { PersonaResponse } from '../../model/persona-response';
@@ -10,10 +11,11 @@ import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { TipoDocumento } from '../../model/tipo-documento';
 import { UbigeoService } from '../../services/ubigeo.service';
 import { Ubigeo } from '../../model/ubigeo';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registrar-persona',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink],
   templateUrl: './registrar-persona.html',
   styleUrl: './registrar-persona.css',
 })
@@ -22,6 +24,8 @@ export class RegistrarPersona implements OnInit{
   private sexoService=inject(SexoService)
   private tipoDocumentoService=inject(TipoDocumentoService)
   private ubigeoService=inject(UbigeoService)
+  private authService=inject(AuthService)
+  private router=inject(Router)
   private cdr=inject(ChangeDetectorRef)
 
   personaResponse:PersonaResponse[]=[];
@@ -158,6 +162,11 @@ export class RegistrarPersona implements OnInit{
       direccion: '',
       idUbigeo: '150101',
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
 
