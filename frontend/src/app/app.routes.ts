@@ -4,6 +4,7 @@ import { Register } from './components/register/register';
 import { Home } from './components/home/home';
 import { RegistrarPersona } from './components/registrar-persona/registrar-persona';
 import { Facturas } from './components/facturacion/facturas';
+import { Profile } from './components/profile/profile';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'home', component: Home, canActivate: [authGuard] },
   { path: 'persona', component: RegistrarPersona, canActivate: [authGuard] },
   { path: 'facturas', component: Facturas, canActivate: [authGuard] },
+  { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: '**', redirectTo: 'login' },
 ];

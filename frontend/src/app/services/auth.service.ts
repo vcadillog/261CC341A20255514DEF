@@ -6,6 +6,8 @@ import { LoginRequest } from '../model/login-request';
 
 const STORAGE_KEY = 'sigcon_logged_in';
 const USERNAME_KEY = 'sigcon_username';
+const NOMBRE_KEY = 'sigcon_nombre';
+const ID_USUARIO_KEY = 'sigcon_id_usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,12 @@ export class AuthService {
   // Reactive flag components can read to show/hide UI
   isLoggedIn = signal<boolean>(localStorage.getItem(STORAGE_KEY) === 'true');
   currentUsername = signal<string | null>(localStorage.getItem(USERNAME_KEY));
+  currentNombre = signal<string | null>(localStorage.getItem(NOMBRE_KEY));
+  currentIdUsuario = signal<number | null>(
+    localStorage.getItem(ID_USUARIO_KEY)
+      ? Number(localStorage.getItem(ID_USUARIO_KEY))
+      : null
+  );
 
   /**
    * Calls POST /api/v1/auth/login. Emits true on success, false on invalid
@@ -28,8 +36,12 @@ export class AuthService {
       tap((usuario) => {
         localStorage.setItem(STORAGE_KEY, 'true');
         localStorage.setItem(USERNAME_KEY, usuario.username);
+        localStorage.setItem(NOMBRE_KEY, usuario.nombre);
+        localStorage.setItem(ID_USUARIO_KEY, String(usuario.idUsuario));
         this.isLoggedIn.set(true);
         this.currentUsername.set(usuario.username);
+        this.currentNombre.set(usuario.nombre);
+        this.currentIdUsuario.set(usuario.idUsuario);
       }),
       map(() => true),
       catchError((err) => {
@@ -44,7 +56,11 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(USERNAME_KEY);
+    localStorage.removeItem(NOMBRE_KEY);
+    localStorage.removeItem(ID_USUARIO_KEY);
     this.isLoggedIn.set(false);
     this.currentUsername.set(null);
+    this.currentNombre.set(null);
+    this.currentIdUsuario.set(null);
   }
 }

@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand navbar-light bg-light mb-4">
+  <div class="container">
+    <span class="navbar-brand">SIGCON</span>
+    <div class="ms-auto">
+      <a routerLink="/home" class="btn btn-outline-primary btn-sm me-2">Inicio</a>
+      <a routerLink="/persona" class="btn btn-outline-primary btn-sm me-2">Personas</a>
+      <a routerLink="/facturas" class="btn btn-outline-primary btn-sm me-2">Facturas</a>
+      <button class="btn btn-outline-secondary btn-sm" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="mb-3">
+            <span class="display-6">{{ nombre() }}</span>
+          </div>
+          <p class="text-muted">@{{ username() }}</p>
+          <hr>
+          <div class="text-start">
+            <dl class="row mb-0">
+              <dt class="col-sm-4">Nombre</dt>
+              <dd class="col-sm-8">{{ nombre() }}</dd>
+              <dt class="col-sm-4">Usuario</dt>
+              <dd class="col-sm-8">{{ username() }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
