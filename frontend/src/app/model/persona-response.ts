@@ -13,4 +13,5 @@ export interface PersonaResponse {
   telefono: string;
   tipoDocumento: TipoDocumento;
   ubigeo: Ubigeo;
+  username?: string;
 }

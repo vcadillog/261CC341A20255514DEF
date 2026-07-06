@@ -34,6 +34,8 @@ public class Persona {
     private String direccion;
     @Column(nullable = false)
     private String telefono;
+    @Column(name = "username", nullable = true, length = 50)
+    private String username;
     @Column(name = "created_at",nullable = true, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
     @Column(name = "updated_at",nullable = true )

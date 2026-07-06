@@ -29,6 +29,7 @@ public class PersonaResponse {
     private String direccion;
     private String telefono;
     private Ubigeo ubigeo;
+    private String username;
 
     public static PersonaResponse fromEntity(Persona persona){
         return PersonaResponse.builder()
@@ -43,6 +44,7 @@ public class PersonaResponse {
                 .direccion(persona.getDireccion())
                 .telefono(persona.getTelefono())
                 .ubigeo(persona.getUbigeo())
+                .username(persona.getUsername())
                 .build();
     }
     public static List<PersonaResponse> fromEntities(List<Persona> persona){

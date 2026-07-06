@@ -1,5 +1,6 @@
 package isw.sigconbackend.service;
 
+import isw.sigconbackend.dto.CambioPasswordRequest;
 import isw.sigconbackend.dto.LoginRequest;
 import isw.sigconbackend.dto.RegistroRequest;
 import isw.sigconbackend.dto.UsuarioResponse;
@@ -54,5 +55,24 @@ public class UsuarioService {
         }
 
         return UsuarioResponse.fromEntity(usuario);
+    }
+
+    /**
+     * Returns null if username doesn't exist or currentPassword doesn't match.
+     */
+    public UsuarioResponse cambiarPassword(CambioPasswordRequest request) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByUsername(request.getUsername());
+        if (usuarioOpt.isEmpty()) {
+            return null;
+        }
+
+        Usuario usuario = usuarioOpt.get();
+        if (!passwordEncoder.matches(request.getCurrentPassword(), usuario.getPasswordHash())) {
+            return null;
+        }
+
+        usuario.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
+        Usuario saved = usuarioRepository.save(usuario);
+        return UsuarioResponse.fromEntity(saved);
     }
 }

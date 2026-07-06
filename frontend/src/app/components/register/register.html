@@ -4,31 +4,52 @@
       <h5 class="card-title mb-3">Crear Cuenta</h5>
 
       <form [formGroup]="registerForm" (ngSubmit)="submit()">
-        <div class="mb-3">
-          <label for="username" class="form-label">Usuario:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            placeholder="Elige un usuario"
-            formControlName="username"
-            [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
-          />
-          <div
-            class="invalid-feedback"
-            *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
-          >
-            El usuario es obligatorio (mínimo 4 caracteres).
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="apellidoPaterno" class="form-label">Apellido Paterno:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoPaterno"
+              placeholder="Apellido paterno"
+              formControlName="apellidoPaterno"
+              [class.is-invalid]="registerForm.get('apellidoPaterno')?.invalid && registerForm.get('apellidoPaterno')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('apellidoPaterno')?.invalid && registerForm.get('apellidoPaterno')?.touched"
+            >
+              Apellido paterno obligatorio (mín. 2 caracteres).
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="apellidoMaterno" class="form-label">Apellido Materno:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoMaterno"
+              placeholder="Apellido materno"
+              formControlName="apellidoMaterno"
+              [class.is-invalid]="registerForm.get('apellidoMaterno')?.invalid && registerForm.get('apellidoMaterno')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('apellidoMaterno')?.invalid && registerForm.get('apellidoMaterno')?.touched"
+            >
+              Apellido materno obligatorio (mín. 2 caracteres).
+            </div>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre completo:</label>
+          <label for="nombre" class="form-label">Nombres:</label>
           <input
             type="text"
             class="form-control"
             id="nombre"
-            placeholder="Nombre completo"
+            placeholder="Nombres"
             formControlName="nombre"
             [class.is-invalid]="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"
           />
@@ -36,25 +57,161 @@
             class="invalid-feedback"
             *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"
           >
-            El nombre es obligatorio (mínimo 2 caracteres).
+            Los nombres son obligatorios (mínimo 2 caracteres).
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="idSexo" class="form-label">Género:</label>
+            <select
+              class="form-control form-select"
+              id="idSexo"
+              formControlName="idSexo"
+            >
+              @for(s of sexo; track s.idSexo){
+                <option [value]="s.idSexo">{{s.descripcion}}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="idTipoDocumento" class="form-label">Tipo Documento:</label>
+            <select
+              class="form-control form-select"
+              id="idTipoDocumento"
+              formControlName="idTipoDocumento"
+            >
+              @for(td of tipoDocumento; track td.idTipoDocumento){
+                <option [value]="td.idTipoDocumento">{{td.descripcion}}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="numDocumento" class="form-label">N° Documento:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="numDocumento"
+              placeholder="N° documento"
+              formControlName="numDocumento"
+              [class.is-invalid]="registerForm.get('numDocumento')?.invalid && registerForm.get('numDocumento')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('numDocumento')?.invalid && registerForm.get('numDocumento')?.touched"
+            >
+              N° documento obligatorio (mín. 8 caracteres).
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha Nacimiento:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fechaNacimiento"
+              formControlName="fechaNacimiento"
+              [class.is-invalid]="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched"
+            >
+              Fecha de nacimiento es obligatoria.
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="telefono"
+              placeholder="Teléfono"
+              formControlName="telefono"
+              [class.is-invalid]="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched"
+            >
+              Teléfono obligatorio (mín. 7 caracteres).
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="idUbigeo" class="form-label">Ubigeo:</label>
+            <select
+              class="form-control form-select"
+              id="idUbigeo"
+              formControlName="idUbigeo"
+            >
+              @for(u of ubigeo; track u.idUbigeo){
+                <option [value]="u.idUbigeo">{{u.departamento}} | {{u.provincia}} | {{u.distrito}}</option>
+              }
+            </select>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="password" class="form-label">Contraseña:</label>
+          <label for="direccion" class="form-label">Dirección:</label>
           <input
-            type="password"
+            type="text"
             class="form-control"
-            id="password"
-            placeholder="Contraseña"
-            formControlName="password"
-            [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            id="direccion"
+            placeholder="Dirección"
+            formControlName="direccion"
+            [class.is-invalid]="registerForm.get('direccion')?.invalid && registerForm.get('direccion')?.touched"
           />
           <div
             class="invalid-feedback"
-            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            *ngIf="registerForm.get('direccion')?.invalid && registerForm.get('direccion')?.touched"
           >
-            La contraseña debe tener al menos 6 caracteres.
+            Dirección obligatoria (mín. 8 caracteres).
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="username" class="form-label">Usuario:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Elige un usuario"
+              formControlName="username"
+              [class.is-invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+            >
+              El usuario es obligatorio (mínimo 4 caracteres).
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Contraseña:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Contraseña"
+              formControlName="password"
+              [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            >
+              La contraseña debe tener al menos 6 caracteres.
+            </div>
           </div>
         </div>
 
@@ -82,7 +239,12 @@
         <div class="text-danger mb-3" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="text-success mb-3" *ngIf="successMessage">{{ successMessage }}</div>
 
-        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="submitting">
+          @if (submitting) {
+            <span class="spinner-border spinner-border-sm me-1"></span>
+          }
+          Registrarse
+        </button>
       </form>
 
       <div class="text-center mt-3">

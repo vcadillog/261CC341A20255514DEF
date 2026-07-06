@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS persona (
     ndocumento        VARCHAR(20)   NOT NULL,
     direccion         VARCHAR(200)  NOT NULL,
     telefono          VARCHAR(20)   NOT NULL,
+    username          VARCHAR(50)   NULL,
     created_at        TIMESTAMP     NULL,
     updated_at        TIMESTAMP     NULL,
     id_sexo           VARCHAR(5)    NULL,

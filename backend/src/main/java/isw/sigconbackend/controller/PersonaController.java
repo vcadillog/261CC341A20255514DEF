@@ -87,6 +87,25 @@ public class PersonaController {
         return ResponseEntity.ok(personaResponse);
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<?> getPersonaByUsername(@PathVariable String username){
+        logger.info(">getPersonaByUsername " + username);
+        PersonaResponse personaResponse;
+        try{
+            personaResponse=personaService.getPersonaByUsername(username);
+        } catch (Exception e) {
+            logger.error("Error Inesperado",e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if(personaResponse==null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.builder()
+                            .message("No se encontró persona para el usuario: "+username)
+                            .build()
+                    );
+        return ResponseEntity.ok(personaResponse);
+    }
+
     @DeleteMapping
     public ResponseEntity<?> deletePersona(@RequestBody PersonaRequest personaRequest){
         logger.info(">delete "+ personaRequest.toString());

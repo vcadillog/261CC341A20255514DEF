@@ -1,5 +1,6 @@
 package isw.sigconbackend.controller;
 
+import isw.sigconbackend.dto.CambioPasswordRequest;
 import isw.sigconbackend.dto.LoginRequest;
 import isw.sigconbackend.dto.RegistroRequest;
 import isw.sigconbackend.dto.UsuarioResponse;
@@ -53,6 +54,25 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(ErrorResponse.builder()
                             .message("Usuario o contraseña inválidos")
+                            .build()
+                    );
+        return ResponseEntity.ok(usuarioResponse);
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity<?> cambiarPassword(@RequestBody CambioPasswordRequest request) {
+        logger.info(">cambiarPassword " + request.getUsername());
+        UsuarioResponse usuarioResponse;
+        try {
+            usuarioResponse = usuarioService.cambiarPassword(request);
+        } catch (Exception e) {
+            logger.error("Error Inesperado", e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (usuarioResponse == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ErrorResponse.builder()
+                            .message("Usuario o contraseña actual inválidos")
                             .build()
                     );
         return ResponseEntity.ok(usuarioResponse);

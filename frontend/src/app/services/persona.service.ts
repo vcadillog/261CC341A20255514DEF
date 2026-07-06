@@ -19,6 +19,10 @@ export class PersonaService {
     return this.http.post<PersonaResponse>(`${environment.url}/persona`,persona)
   }
 
+  getPersonaByUsername(username: string): Observable<PersonaResponse>{
+    return this.http.get<PersonaResponse>(`${environment.url}/persona/username/${username}`)
+  }
+
   actualizarPersona(persona: PersonaRequest): Observable<PersonaResponse>{
     return this.http.put<PersonaResponse>(`${environment.url}/persona`,persona)
   }

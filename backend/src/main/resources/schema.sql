@@ -1,3 +1,5 @@
+ALTER TABLE persona ADD COLUMN IF NOT EXISTS username VARCHAR(50);
+
 CREATE TABLE IF NOT EXISTS facturas (
     id_factura SERIAL PRIMARY KEY,
     serie VARCHAR(10) NOT NULL,

@@ -25,26 +25,18 @@ public class PersonaService {
     }
 
     public PersonaResponse insertPersona(PersonaRequest personaRequest){
-        //Creamos una instancia de la entity persona a partir del request
         Persona persona=PersonaRequest.toEntity(personaRequest);
-        //Seteamos fecha actual a los campos de auditoria
         persona.setCreatedAt(java.time.LocalDateTime.now());
         persona.setUpdatedAt(java.time.LocalDateTime.now());
-        //Registramos la entity persona
         Persona newPersona=personaRepository.save(persona);
-        //Transformamos la nueva entity a un objeto de tipo response
         PersonaResponse personaResponse=PersonaResponse.fromEntity(newPersona);
         return personaResponse;
     }
 
     public PersonaResponse updatePersona(PersonaRequest personaRequest){
-        //Creamos una instancia de la entity persona a partir del request
         Persona persona=PersonaRequest.toEntity(personaRequest);
-        //Seteamos fecha actual a los campos de auditoria
         persona.setUpdatedAt(java.time.LocalDateTime.now());
-        //Actualizamos la entity persona
         persona=personaRepository.save(persona);
-        //Transformamos la entity modificada a un objeto de tipo response
         PersonaResponse personaResponse=PersonaResponse.fromEntity(persona);
         return personaResponse;
     }
@@ -53,6 +45,9 @@ public class PersonaService {
         personaRepository.deleteById(id);
     }
 
-
-
+    public PersonaResponse getPersonaByUsername(String username){
+        return personaRepository.findByUsername(username)
+                .map(PersonaResponse::fromEntity)
+                .orElse(null);
+    }
 }

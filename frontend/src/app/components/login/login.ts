@@ -34,6 +34,7 @@ export class Login {
     this.authService.login(username ?? '', password ?? '').subscribe({
       next: (ok) => {
         if (ok) {
+          this.authService.loadPersona();
           this.router.navigate(['/home']);
         } else {
           this.errorMessage = 'Usuario o contraseña inválidos.';

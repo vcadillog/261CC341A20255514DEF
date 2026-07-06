@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LoginRequest } from '../model/login-request';
 import { RegistroRequest } from '../model/registro-request';
+import { CambioPasswordRequest } from '../model/cambio-password-request';
 import { UsuarioResponse } from '../model/usuario-response';
 
 @Injectable({
@@ -18,5 +19,9 @@ export class UsuarioService {
 
   registrar(request: RegistroRequest): Observable<UsuarioResponse> {
     return this.http.post<UsuarioResponse>(`${environment.url}/auth/registro`, request);
+  }
+
+  cambiarPassword(request: CambioPasswordRequest): Observable<UsuarioResponse> {
+    return this.http.put<UsuarioResponse>(`${environment.url}/auth/password`, request);
   }
 }

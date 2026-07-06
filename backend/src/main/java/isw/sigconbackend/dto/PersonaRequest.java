@@ -27,6 +27,7 @@ public class PersonaRequest {
     private String direccion;
     private String telefono;
     private String idUbigeo;
+    private String username;
 
     public static Persona toEntity(PersonaRequest personaRequest){
         Persona persona = new Persona();
@@ -42,6 +43,7 @@ public class PersonaRequest {
         persona.setDireccion(personaRequest.getDireccion());
         persona.setNumDocumento(personaRequest.getNumDocumento());
         persona.setTelefono(personaRequest.getTelefono());
+        persona.setUsername(personaRequest.getUsername());
         if(personaRequest.getIdSexo()!=null)
             persona.setSexo(Sexo.builder().idSexo(personaRequest.getIdSexo()).build());
         if(personaRequest.getIdTipoDocumento()!=null)

@@ -88,7 +88,14 @@
               class="form-control"
               id="fechaNacimiento"
               formControlName="fechaNacimiento"
+              [class.is-invalid]="personaForm.get('fechaNacimiento')?.invalid && personaForm.get('fechaNacimiento')?.touched"
               />
+              <div
+                class="invalid-feedback"
+                *ngIf="personaForm.get('fechaNacimiento')?.invalid && personaForm.get('fechaNacimiento')?.touched"
+              >
+                Fecha de nacimiento es obligatoria.
+              </div>
             </div>
           </div>
           <!--Tipo Documento-->

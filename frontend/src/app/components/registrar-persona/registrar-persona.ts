@@ -44,7 +44,7 @@ export class RegistrarPersona implements OnInit{
       apellidoMaterno:new FormControl('',[Validators.required,Validators.minLength(2)]),
       nombres:new FormControl('',[Validators.required,Validators.minLength(2)]),
       idSexo:new FormControl('I'),
-      fechaNacimiento:new FormControl(''),
+      fechaNacimiento:new FormControl('', [Validators.required]),
       idTipoDocumento:new FormControl('1'),
       numDocumento:new FormControl('',[Validators.required,Validators.minLength(8)]),
       telefono:new FormControl('',[Validators.required,Validators.minLength(7)]),

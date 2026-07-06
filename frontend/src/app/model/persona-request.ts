@@ -10,4 +10,5 @@ export interface PersonaRequest {
   direccion: string;
   telefono: string;
   idUbigeo: string;
+  username?: string;
 }
