@@ -1,4 +1,4 @@
 export const environment={
-  url:'https://swi-fullstack.onrender.com/api/v1',
-  eleccionUrl:'https://swi-fullstack.onrender.com/api/v1'
+  url: 'http://localhost:8080/api/v1',
+  eleccionUrl: 'http://localhost:8080/api/v1',
 }

@@ -5,49 +5,49 @@
     </div>
   </div>
 
-  <div *ngIf="loading" class="text-center my-5">
+  <div *ngIf="loading()" class="text-center my-5">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Cargando...</span>
     </div>
     <p class="mt-2 text-muted">Cargando resultados electorales...</p>
   </div>
 
-  <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }}</div>
+  <div *ngIf="error()" class="alert alert-danger" role="alert">{{ error() }}</div>
 
-  <div *ngIf="!loading && !error" class="row">
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-header text-center">
-          <h5 class="mb-0">Votos Nacionales</h5>
-          <small class="text-muted">Voto local</small>
-        </div>
-        <div class="card-body chart-container">
-          <canvas id="chartNacionales"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-header text-center">
-          <h5 class="mb-0">Votos Extranjero</h5>
-          <small class="text-muted">Voto exterior</small>
-        </div>
-        <div class="card-body chart-container">
-          <canvas id="chartExtranjero"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-header text-center">
-          <h5 class="mb-0">Total de Votos</h5>
-          <small class="text-muted">Nacionales + Extranjero</small>
-        </div>
-        <div class="card-body chart-container">
-          <canvas id="chartTotal"></canvas>
+  <div *ngIf="!loading() && !error()">
+    <ul class="nav nav-tabs justify-content-center mb-4">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'todos'" (click)="switchTab('todos')">Todos</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'peru'" (click)="switchTab('peru')">Perú</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'extranjero'" (click)="switchTab('extranjero')">Extranjero</button>
+      </li>
+    </ul>
+
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chartA"></canvas>
+                </div>
+                <p class="text-center mt-2 mb-0"><strong>{{ leftName() }}</strong><br><small class="text-muted">{{ leftParty() }}</small><br><small>{{ leftVotes().toLocaleString() }} votos</small></p>
+              </div>
+              <div class="col-md-6">
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chartB"></canvas>
+                </div>
+                <p class="text-center mt-2 mb-0"><strong>{{ rightName() }}</strong><br><small class="text-muted">{{ rightParty() }}</small><br><small>{{ rightVotes().toLocaleString() }} votos</small></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
